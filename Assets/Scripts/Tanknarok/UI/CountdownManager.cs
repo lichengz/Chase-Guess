@@ -4,61 +4,107 @@ using TMPro;
 
 namespace FusionExamples.Tanknarok
 {
-	public class CountdownManager : MonoBehaviour
-	{
-		[SerializeField] private float _countdownFrom;
-		[SerializeField] private AnimationCurve _countdownCurve;
-		[SerializeField] private TextMeshProUGUI _countdownUI;
-		[SerializeField] AudioEmitter _audioEmitter;
+    public class CountdownManager : MonoBehaviour
+    {
+        [SerializeField] private float _levelStartcountdownFrom;
+        [SerializeField] private TextMeshProUGUI _levelStartcountdownUI;
+        private float _levelstartCountdownTimer;
 
-		private float _countdownTimer;
+        [SerializeField] private float _refreshCountdownFrom;
+        [SerializeField] private TextMeshProUGUI _refreshCountdownUI;
+        private float _RefreshCountdownTimer;
 
-		public delegate void Callback();
+        [SerializeField] private AnimationCurve _countdownCurve;
+        [SerializeField] AudioEmitter _audioEmitter;
 
-		private void Start()
-		{
-			Reset();
-		}
+        public delegate void Callback();
 
-		public void Reset()
-		{
-			_countdownUI.transform.localScale = Vector3.zero;
-		}
+        private void Start()
+        {
+            Reset();
+        }
 
-		public IEnumerator Countdown(Callback callback)
-		{
-			_countdownUI.transform.localScale = Vector3.zero;
+        public void Reset()
+        {
+            _levelStartcountdownUI.transform.localScale = Vector3.zero;
+        }
 
-			_countdownUI.text = _countdownFrom.ToString();
-			_countdownUI.gameObject.SetActive(true);
+        public IEnumerator LevelStartCountdown(Callback callback)
+        {
+            _levelStartcountdownUI.transform.localScale = Vector3.zero;
 
-			int lastCount = Mathf.CeilToInt(_countdownFrom + 1);
-			_countdownTimer = _countdownFrom;
+            _levelStartcountdownUI.text = _levelStartcountdownFrom.ToString();
+            _levelStartcountdownUI.gameObject.SetActive(true);
 
-			while (_countdownTimer > 0)
-			{
-				int currentCount = Mathf.CeilToInt(_countdownTimer);
+            int lastCount = Mathf.CeilToInt(_levelStartcountdownFrom + 1);
+            _levelstartCountdownTimer = _levelStartcountdownFrom;
 
-				if (lastCount != currentCount)
-				{
-					lastCount = currentCount;
-					_countdownUI.text = currentCount.ToString();
-					_audioEmitter.PlayOneShot();
-				}
+            while (_levelstartCountdownTimer > 0)
+            {
+                int currentCount = Mathf.CeilToInt(_levelstartCountdownTimer);
 
-				float x = _countdownTimer - Mathf.Floor(_countdownTimer);
-				
-				float t = _countdownCurve.Evaluate(x);
-				if (t >= 0)
-					_countdownUI.transform.localScale = Vector3.one * t;
+                if (lastCount != currentCount)
+                {
+                    lastCount = currentCount;
+                    _levelStartcountdownUI.text = currentCount.ToString();
+                    _audioEmitter.PlayOneShot();
+                }
 
-				_countdownTimer -= Time.deltaTime * 1.5f;
-				yield return null;
-			}
+                float x = _levelstartCountdownTimer - Mathf.Floor(_levelstartCountdownTimer);
 
-			_countdownUI.gameObject.SetActive(false);
+                float t = _countdownCurve.Evaluate(x);
+                if (t >= 0)
+                    _levelStartcountdownUI.transform.localScale = Vector3.one * t;
 
-			callback?.Invoke();
-		}
-	}
+                _levelstartCountdownTimer -= Time.deltaTime * 1.5f;
+                yield return null;
+            }
+
+            _levelStartcountdownUI.gameObject.SetActive(false);
+
+            callback?.Invoke();
+        }
+
+        public IEnumerator RefreshCountdown(Callback callback)
+        {
+            _refreshCountdownUI.transform.localScale = Vector3.zero;
+
+            _refreshCountdownUI.text = _refreshCountdownFrom.ToString();
+            _refreshCountdownUI.gameObject.SetActive(true);
+
+            int lastCount = Mathf.CeilToInt(_refreshCountdownFrom + 1);
+            _RefreshCountdownTimer = _refreshCountdownFrom;
+
+            while (_RefreshCountdownTimer > 0)
+            {
+                int currentCount = Mathf.CeilToInt(_RefreshCountdownTimer);
+
+                if (lastCount != currentCount)
+                {
+                    lastCount = currentCount;
+                    _refreshCountdownUI.text = currentCount.ToString();
+                    _audioEmitter.PlayOneShot();
+                }
+
+                float x = _RefreshCountdownTimer - Mathf.Floor(_RefreshCountdownTimer);
+
+                float t = _countdownCurve.Evaluate(x);
+                if (t >= 0)
+                    _refreshCountdownUI.transform.localScale = Vector3.one * t;
+
+                _RefreshCountdownTimer -= Time.deltaTime * 1.5f;
+
+                if (_RefreshCountdownTimer < 0)
+                {
+                    lastCount = Mathf.CeilToInt(_refreshCountdownFrom + 1);
+                    _RefreshCountdownTimer = _refreshCountdownFrom;
+                    callback?.Invoke();
+                }
+
+                yield return null;
+            }
+
+            _refreshCountdownUI.gameObject.SetActive(false);
+        }
+    }
 }

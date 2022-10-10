@@ -23,7 +23,7 @@ namespace FusionExamples.Tanknarok
 				ui.Dirty();
 			}
 
-			_allPlayersReady = PlayerManager.allPlayers.Count>1 || (PlayerManager.allPlayers.Count==1 && _allowSoloPlay);
+			_allPlayersReady = PlayerManager.allPlayers.Count>=1 || (PlayerManager.allPlayers.Count==1 && _allowSoloPlay);
 			foreach (Player player in PlayerManager.allPlayers)
 			{
 				ReadyupIndicator indicator;
