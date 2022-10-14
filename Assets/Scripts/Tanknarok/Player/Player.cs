@@ -78,7 +78,7 @@ namespace FusionExamples.Tanknarok
         {
             ROCK,
             PAPER,
-            Scissors
+            SCISSORS
         }
 
         public bool isActivated => (gameObject.activeInHierarchy && (state == State.Active || state == State.Spawning));
@@ -318,8 +318,9 @@ namespace FusionExamples.Tanknarok
                 return;
 
             //Don't damage yourself
+            //also check attacker BattleID before applying damage
             Player attackingPlayer = PlayerManager.Get(attacker);
-            if (attackingPlayer != null && attackingPlayer.playerID == playerID)
+            if (attackingPlayer != null && attackingPlayer.playerID == playerID && !CanTakeDamage(attackingPlayer.battleID))
                 return;
 
             ApplyImpulse(impulse);
@@ -347,6 +348,19 @@ namespace FusionExamples.Tanknarok
 
             if (Runner.Stage == SimulationStages.Forward)
                 _damageVisuals.OnDamaged(life, isDead);
+        }
+
+        //rock damages scissors, scissors dammage paper, paper damages rock
+        public bool CanTakeDamage(BattleID attackerFaction)
+        {
+            if ((attackerFaction == BattleID.ROCK && battleID == BattleID.SCISSORS) || (attackerFaction == BattleID.SCISSORS && battleID == BattleID.PAPER) || (attackerFaction == BattleID.PAPER && battleID == BattleID.ROCK))
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
         }
 
         public void Respawn(float inSeconds)
