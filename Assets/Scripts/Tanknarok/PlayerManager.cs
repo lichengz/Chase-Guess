@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System; 
 using UnityEngine;
 using Fusion;
 
@@ -8,7 +9,8 @@ namespace FusionExamples.Tanknarok
 	{		
 		private static List<Player> _allPlayers = new List<Player>();
 		public static List<Player> allPlayers => _allPlayers;
-
+        private static List<Player> _playersAlive = new List<Player>();
+        public static List<Player> playersAlive => _playersAlive;
 		private static Queue<Player> _playerQueue = new Queue<Player>();
 
 		static private CameraStrategy _cameraStrategy;
@@ -36,14 +38,16 @@ namespace FusionExamples.Tanknarok
 
 		public static int PlayersAlive()
 		{
-			int playersAlive = 0;
+			int numPlayersAlive = 0;
 			for (int i = 0; i < _allPlayers.Count; i++)
 			{
-				if (_allPlayers[i].isActivated || _allPlayers[i].lives>0)
-					playersAlive++;
+				if (_allPlayers[i].isActivated || _allPlayers[i].lives > 0)
+                {
+                    _playersAlive.Add(_allPlayers[i]);
+                    numPlayersAlive++;
+                }
 			}
-
-			return playersAlive;
+			return numPlayersAlive;
 		}
 
 		public static Player GetFirstAlivePlayer()
@@ -123,5 +127,32 @@ namespace FusionExamples.Tanknarok
 
 			return null;
 		}
+
+        public static void AssignBattleIDs()
+        {
+            var rand = new System.Random();
+            int[] randomBattleIDs = new int[PlayersAlive()];
+
+            for (int i = 0; i < _playersAlive.Count; i++)
+            {
+                // generate random nums between 1 and 3 (rock, paper, scissors. 0 is null)
+                int randomBattleID = rand.Next(1, 4);
+
+                // first 3 numbers generated must be unique 
+                if (i > 0 && i < 3) 
+                {
+                    // generate again if randomBattleIDs already contains the number
+                    while (Array.IndexOf(randomBattleIDs, randomBattleID) > -1)
+                    {
+                        randomBattleID = rand.Next(1, 4);
+                    }
+                }
+
+                randomBattleIDs.SetValue(randomBattleID, i);
+                _playersAlive[i].battleID = (Player.BattleID)randomBattleIDs[i];
+
+                Debug.Log($"assigned battle id {(Player.BattleID)randomBattleIDs[i]} to player {_playersAlive[i]}");
+            }
+        }
 	}
 }

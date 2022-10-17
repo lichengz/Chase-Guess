@@ -181,6 +181,10 @@ namespace FusionExamples.Tanknarok
 
             // Respawn with slight delay between each player
             Debug.Log($"Respawning All Players");
+
+            // reset battleIDs for players alive  
+            PlayerManager.AssignBattleIDs();
+
             for (int i = 0; i < PlayerManager.allPlayers.Count; i++)
             {
                 Player player = PlayerManager.allPlayers[i];

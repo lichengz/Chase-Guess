@@ -76,6 +76,7 @@ namespace FusionExamples.Tanknarok
 
         public enum BattleID
         {
+            NULL,
             ROCK,
             PAPER,
             SCISSORS
@@ -142,26 +143,31 @@ namespace FusionExamples.Tanknarok
         public void InitNetworkState(byte maxLives)
         {
             state = State.New;
-            battleID = GetRandomBattleID();
+            // battleID is set after all players are ready 
+            battleID = BattleID.NULL;
             lives = maxLives;
             life = MAX_HEALTH;
             score = 0;
         }
 
-        public BattleID GetRandomBattleID()
+        // public BattleID GetRandomBattleID()
+        // {
+        //     System.Random random = new System.Random();
+        //     Type type = typeof(BattleID);
+
+        //     Array values = type.GetEnumValues();
+        //     //Array values = Enum.GetValues(type);
+
+        //     int index = random.Next(values.Length);
+        //     BattleID battleID = (BattleID)values.GetValue(index);
+
+        //     return battleID;
+        // }
+
+        public void ResetBattleID(BattleID newBattleID)
         {
-            System.Random random = new System.Random();
-            Type type = typeof(BattleID);
-
-            Array values = type.GetEnumValues();
-            //Array values = Enum.GetValues(type);
-
-            int index = random.Next(values.Length);
-            BattleID battleID = (BattleID)values.GetValue(index);
-
-            return battleID;
+            battleID = newBattleID;
         }
-
 
         public override void Spawned()
         {
@@ -320,7 +326,7 @@ namespace FusionExamples.Tanknarok
             //Don't damage yourself
             //also check attacker BattleID before applying damage
             Player attackingPlayer = PlayerManager.Get(attacker);
-            if (attackingPlayer != null && attackingPlayer.playerID == playerID && !CanTakeDamage(attackingPlayer.battleID))
+            if (attackingPlayer != null && attackingPlayer.playerID == playerID && !CanApplyDamage(attackingPlayer.battleID))
                 return;
 
             ApplyImpulse(impulse);
@@ -351,8 +357,10 @@ namespace FusionExamples.Tanknarok
         }
 
         //rock damages scissors, scissors dammage paper, paper damages rock
-        public bool CanTakeDamage(BattleID attackerFaction)
+        private bool CanApplyDamage(BattleID attackerFaction)
         {
+            if (attackerFaction == battleID) return false;
+
             if ((attackerFaction == BattleID.ROCK && battleID == BattleID.SCISSORS) || (attackerFaction == BattleID.SCISSORS && battleID == BattleID.PAPER) || (attackerFaction == BattleID.PAPER && battleID == BattleID.ROCK))
             {
                 return true;
@@ -375,7 +383,7 @@ namespace FusionExamples.Tanknarok
             SpawnPoint spawnpt = GetLevelManager().GetPlayerSpawnPoint(playerID);
             if (spawnpt != null && _respawnInSeconds <= 0)
             {
-                Debug.Log($"Respawning player {playerID}, life={life}, lives={lives}, hasAuthority={Object.HasStateAuthority} from state={state}");
+                Debug.Log($"Respawning player {playerID}, life={life}, lives={lives}, battleID = {battleID}, hasAuthority={Object.HasStateAuthority} from state={state}");
 
                 // Make sure we don't get in here again, even if we hit exactly zero
                 _respawnInSeconds = -1;
@@ -396,7 +404,7 @@ namespace FusionExamples.Tanknarok
                 if (state != State.Active)
                     state = State.Spawning;
 
-                Debug.Log($"Respawned player {playerID}, tick={Runner.Simulation.Tick}, timer={respawnTimer.IsRunning}:{respawnTimer.TargetTick}, life={life}, lives={lives}, hasAuthority={Object.HasStateAuthority} to state={state}");
+                Debug.Log($"Respawned player {playerID}, tick={Runner.Simulation.Tick}, timer={respawnTimer.IsRunning}:{respawnTimer.TargetTick}, life={life}, lives={lives},  battleID = {battleID}, hasAuthority={Object.HasStateAuthority} to state={state}");
             }
         }
 
