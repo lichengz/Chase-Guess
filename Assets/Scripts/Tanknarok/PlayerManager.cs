@@ -39,6 +39,7 @@ namespace FusionExamples.Tanknarok
 		public static int PlayersAlive()
 		{
 			int numPlayersAlive = 0;
+            _playersAlive.Clear();
 			for (int i = 0; i < _allPlayers.Count; i++)
 			{
 				if (_allPlayers[i].isActivated || _allPlayers[i].lives > 0)
@@ -135,7 +136,7 @@ namespace FusionExamples.Tanknarok
 
             for (int i = 0; i < _playersAlive.Count; i++)
             {
-                // generate random nums between 1 and 3 (rock, paper, scissors. 0 is null)
+                // random numbers between 1 and 3 (rock, paper, scissors. 0 is null)
                 int randomBattleID = rand.Next(1, 4);
 
                 // first 3 numbers generated must be unique 

@@ -7,7 +7,7 @@ namespace FusionExamples.Tanknarok
 	{
 		[SerializeField] private Transform _readyUIParent;
 		[SerializeField] private ReadyupIndicator _readyPrefab;
-		[SerializeField] private bool _allowSoloPlay = false;
+		[SerializeField] private bool _allowSoloPlay = true;
 		[SerializeField] private AudioEmitter _audioEmitter;
 
 		private Dictionary<int, ReadyupIndicator> _readyUIs = new Dictionary<int, ReadyupIndicator>();
