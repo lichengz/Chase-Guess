@@ -217,6 +217,8 @@ namespace FusionExamples.Tanknarok
                     Debug.Log($"Switched Scene from {prevScene} to {newScene}");
                     StartCoroutine(_countdownManager.RefreshCountdown(() =>
                     {
+                        PlayerManager.AssignBattleIDs();
+                        
                         // Set state to playing level
                         Debug.Log($"New Battle ID Refreshed");
                     }));

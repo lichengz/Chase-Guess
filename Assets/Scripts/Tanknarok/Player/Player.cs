@@ -164,11 +164,6 @@ namespace FusionExamples.Tanknarok
         //     return battleID;
         // }
 
-        public void ResetBattleID(BattleID newBattleID)
-        {
-            battleID = newBattleID;
-        }
-
         public override void Spawned()
         {
             if (Object.HasInputAuthority)

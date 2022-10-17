@@ -83,14 +83,17 @@ namespace FusionExamples.Tanknarok
                 {
                     lastCount = currentCount;
                     _refreshCountdownUI.text = currentCount.ToString();
+                    Debug.Log($"countdown {currentCount.ToString()}");
                     _audioEmitter.PlayOneShot();
                 }
 
                 float x = _RefreshCountdownTimer - Mathf.Floor(_RefreshCountdownTimer);
 
-                float t = _countdownCurve.Evaluate(x);
-                if (t >= 0)
-                    _refreshCountdownUI.transform.localScale = Vector3.one * t;
+                // igonore the animation for now, it hurts my eyesss
+                // float t = _countdownCurve.Evaluate(x);
+                // if (t >= 0)
+                //     _refreshCountdownUI.transform.localScale = Vector3.one * t;
+                _refreshCountdownUI.transform.localScale = Vector3.one;
 
                 _RefreshCountdownTimer -= Time.deltaTime * 1.5f;
 
@@ -99,6 +102,7 @@ namespace FusionExamples.Tanknarok
                     lastCount = Mathf.CeilToInt(_refreshCountdownFrom + 1);
                     _RefreshCountdownTimer = _refreshCountdownFrom;
                     callback?.Invoke();
+                    Debug.Log($"invoked countdown callback");
                 }
 
                 yield return null;
