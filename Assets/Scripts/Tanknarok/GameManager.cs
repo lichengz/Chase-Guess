@@ -82,21 +82,21 @@ namespace FusionExamples.Tanknarok
 				{
 					Player lastPlayerStanding = playersleft == 0 ? null : PlayerManager.GetFirstAlivePlayer();
 					// if there is only one player, who died from a laser (e.g.) we don't award scores. 
-          if (lastPlayerStanding != null)
-          {
-            int winningPlayerIndex = lastPlayerStanding.playerID;
-            //int nextLevelIndex = _levelManager.GetRandomLevelIndex();
-            byte winningPlayerScore = (byte)(lastPlayerStanding.score + 1);
-            if (winningPlayerIndex >= 0)
-            {
-	            Player winner = PlayerManager.GetPlayerFromID(winningPlayerIndex);
-	            if (winner.Object.HasStateAuthority)
-		            winner.score = winningPlayerScore;
-	            // if (winningPlayerScore >= MAX_SCORE)
-		        //     nextLevelIndex = -1;
-            }
-            //LoadLevel( nextLevelIndex, winningPlayerIndex);
-          }
+                    if (lastPlayerStanding != null)
+                    {
+                        int winningPlayerIndex = lastPlayerStanding.playerID;
+                        //int nextLevelIndex = _levelManager.GetRandomLevelIndex();
+                        byte winningPlayerScore = (byte)(lastPlayerStanding.score + 1);
+                        if (winningPlayerIndex >= 0)
+                        {
+                            Player winner = PlayerManager.GetPlayerFromID(winningPlayerIndex);
+                            if (winner.Object.HasStateAuthority)
+                                winner.score = winningPlayerScore;
+                            // if (winningPlayerScore >= MAX_SCORE)
+                            //     nextLevelIndex = -1;
+                        }
+                        //LoadLevel( nextLevelIndex, winningPlayerIndex);
+                    }
 				}
 			}
 		}
