@@ -182,9 +182,6 @@ namespace FusionExamples.Tanknarok
             // Respawn with slight delay between each player
             Debug.Log($"Respawning All Players");
 
-            // reset battleIDs for players alive  
-            PlayerManager.AssignBattleIDs();
-
             for (int i = 0; i < PlayerManager.allPlayers.Count; i++)
             {
                 Player player = PlayerManager.allPlayers[i];
@@ -217,9 +214,8 @@ namespace FusionExamples.Tanknarok
                     Debug.Log($"Switched Scene from {prevScene} to {newScene}");
                     StartCoroutine(_countdownManager.RefreshCountdown(() =>
                     {
+                        // assign new battleIDs on countdown end 
                         PlayerManager.AssignBattleIDs();
-                        
-                        // Set state to playing level
                         Debug.Log($"New Battle ID Refreshed");
                     }));
                 }));

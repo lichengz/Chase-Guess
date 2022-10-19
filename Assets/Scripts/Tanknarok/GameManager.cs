@@ -152,10 +152,12 @@ namespace FusionExamples.Tanknarok
 
 			// Reset stats and transition to level.
 			ResetStats();
+            // reset battleIDs 
+            PlayerManager.AssignBattleIDs();
 
 			// close and hide the session from matchmaking / lists. this demo does not allow late join.
-      Runner.SessionInfo.IsOpen = false;
-      Runner.SessionInfo.IsVisible = false;
+            Runner.SessionInfo.IsOpen = false;
+            Runner.SessionInfo.IsVisible = false;
 
             // LoadLevel(_levelManager.GetRandomLevelIndex(),-1);
             // only load level 1 for now 

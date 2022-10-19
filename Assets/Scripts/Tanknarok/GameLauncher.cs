@@ -63,9 +63,9 @@ namespace FusionExamples.Tanknarok
 			SetGameMode(GameMode.Client);
 		}
 
-		public void OnSharedOptions()
+		public void OnLocalOptions()
 		{
-			SetGameMode(GameMode.Shared);
+			SetGameMode(GameMode.Single);
 		}
 
 		private void SetGameMode(GameMode gamemode)
