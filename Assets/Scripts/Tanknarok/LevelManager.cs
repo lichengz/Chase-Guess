@@ -48,14 +48,14 @@ namespace FusionExamples.Tanknarok
         }
 
         // Get a random level
-        public int GetRandomLevelIndex()
-        {
-            int idx = Random.Range(0, _levels.Length);
-            // Make sure it's not the same level again. This is partially because it's more fun to try different levels and partially because scene handling breaks if trying to load the same scene again.
-            if (_levels[idx] == _loadedScene.buildIndex)
-                idx = (idx + 1) % _levels.Length;
-            return idx;
-        }
+        // public int GetRandomLevelIndex()
+        // {
+        //     int idx = Random.Range(0, _levels.Length);
+        //     // Make sure it's not the same level again. This is partially because it's more fun to try different levels and partially because scene handling breaks if trying to load the same scene again.
+        //     if (_levels[idx] == _loadedScene.buildIndex)
+        //         idx = (idx + 1) % _levels.Length;
+        //     return idx;
+        // }
 
         public SpawnPoint GetPlayerSpawnPoint(int playerID)
         {

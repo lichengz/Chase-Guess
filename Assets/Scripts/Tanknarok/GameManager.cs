@@ -85,17 +85,17 @@ namespace FusionExamples.Tanknarok
           if (lastPlayerStanding != null)
           {
             int winningPlayerIndex = lastPlayerStanding.playerID;
-            int nextLevelIndex = _levelManager.GetRandomLevelIndex();
+            //int nextLevelIndex = _levelManager.GetRandomLevelIndex();
             byte winningPlayerScore = (byte)(lastPlayerStanding.score + 1);
             if (winningPlayerIndex >= 0)
             {
 	            Player winner = PlayerManager.GetPlayerFromID(winningPlayerIndex);
 	            if (winner.Object.HasStateAuthority)
 		            winner.score = winningPlayerScore;
-	            if (winningPlayerScore >= MAX_SCORE)
-		            nextLevelIndex = -1;
+	            // if (winningPlayerScore >= MAX_SCORE)
+		        //     nextLevelIndex = -1;
             }
-            LoadLevel( nextLevelIndex, winningPlayerIndex);
+            //LoadLevel( nextLevelIndex, winningPlayerIndex);
           }
 				}
 			}
@@ -157,7 +157,9 @@ namespace FusionExamples.Tanknarok
       Runner.SessionInfo.IsOpen = false;
       Runner.SessionInfo.IsVisible = false;
 
-	    LoadLevel(_levelManager.GetRandomLevelIndex(),-1);
+            // LoadLevel(_levelManager.GetRandomLevelIndex(),-1);
+            // only load level 1 for now 
+            LoadLevel(0, -1);
 		}
 		
 		private void LoadLevel(int nextLevelIndex, int winningPlayerIndex)
