@@ -53,6 +53,15 @@ namespace FusionExamples.Tanknarok
 
         [Networked]
         private TickTimer invulnerabilityTimer { get; set; }
+        [Networked]
+
+        public TickTimer networkedAttackLifeTimer { get; set; }
+        private TickTimer _predictedAttackLifeTimer;
+        private TickTimer attackLifeTimer
+        {
+            get => Object.IsPredictedSpawn ? _predictedAttackLifeTimer : networkedAttackLifeTimer;
+            set { if (Object.IsPredictedSpawn) _predictedAttackLifeTimer = value; else networkedAttackLifeTimer = value; }
+        }
 
         [Networked]
         public byte lives { get; set; }
@@ -209,6 +218,7 @@ namespace FusionExamples.Tanknarok
             }
 
             CheckForPowerupPickup();
+            //CheckForAttack();
         }
 
         /// <summary>
@@ -289,6 +299,23 @@ namespace FusionExamples.Tanknarok
             _cc.Move(new Vector3(moveDirection.x, 0, moveDirection.y));
         }
 
+        public void AttackStart()
+        {
+            // if attack timer is inactive, start attack life timer             
+            Debug.Log($"player {playerID} attacks!");
+        }
+
+        private void CheckForAttack() //called every network update 
+        {
+            // if attack timer is active
+            // update arm pos and check if new pos overlaps w another player 
+
+            // if (isActivated && Runner.GetPhysicsScene().OverlapSphere(transform.position, _pickupRadius, _overlaps, _pickupMask, QueryTriggerInteraction.Collide) > 0)
+            // {
+            //      attackedPlayer.ApplyDamage(impulse, damage, player)
+            // }
+        }
+    
         /// <summary>
         /// Apply an impulse to the Tank - in the absence of a rigidbody and rigidbody physics, we're emulating a physical impact by
         /// adding directly to the Tanks controller velocity. I'm sure Newton is doing a few extra turns in his grave over this, but for a
@@ -321,7 +348,7 @@ namespace FusionExamples.Tanknarok
             //Don't damage yourself
             //also check attacker BattleID before applying damage
             Player attackingPlayer = PlayerManager.Get(attacker);
-            if (attackingPlayer != null && attackingPlayer.playerID == playerID && !CanApplyDamage(attackingPlayer.battleID))
+            if (attackingPlayer == null || attackingPlayer.playerID == playerID && !CanApplyDamage(attackingPlayer.battleID))
                 return;
 
             ApplyImpulse(impulse);
@@ -343,6 +370,7 @@ namespace FusionExamples.Tanknarok
             {
                 life -= damage;
                 Debug.Log($"Player {playerID} took {damage} damage, life = {life}");
+                // Debug.Log($"Player {playerID} took {damage} damage from player {attackingPlayer.playerID}, life = {life}");
             }
 
             invulnerabilityTimer = TickTimer.CreateFromSeconds(Runner, 0.1f);

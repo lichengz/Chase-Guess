@@ -204,7 +204,8 @@ namespace FusionExamples.Tanknarok
 
 				if (input.IsDown(NetworkInputData.BUTTON_FIRE_PRIMARY))
 				{
-					_player.shooter.FireWeapon(WeaponManager.WeaponInstallationType.PRIMARY);
+					//_player.shooter.FireWeapon(WeaponManager.WeaponInstallationType.PRIMARY);
+                    _player.AttackStart();
 				}
 
 				if (input.IsDown(NetworkInputData.BUTTON_FIRE_SECONDARY))
