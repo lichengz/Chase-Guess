@@ -185,6 +185,9 @@ namespace FusionExamples.Tanknarok
 			{
 				_mobileInput.gameObject.SetActive(false);
 			}
+
+
+			_player.GetAnimator().SetBool("run", _moveDelta.magnitude != 0);
 		}
 
 		/// <summary>

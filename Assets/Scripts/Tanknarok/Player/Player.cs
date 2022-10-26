@@ -17,10 +17,11 @@ namespace FusionExamples.Tanknarok
         [Header("Visuals")]
         [SerializeField] private Transform _hull;
         [SerializeField] private Transform _turret;
-        [SerializeField] private Transform _visualParent;
+        // [SerializeField] private Transform _visualParent;
         [SerializeField] private Material[] _playerMaterials;
         [SerializeField] private TankTeleportInEffect _teleportIn;
         [SerializeField] private TankTeleportOutEffect _teleportOut;
+        [SerializeField] private Animator _animator;
 
         [Space(10)]
         [SerializeField] private GameObject _deathExplosionPrefab;
@@ -124,6 +125,12 @@ namespace FusionExamples.Tanknarok
         private GameObject _deathExplosionInstance;
         private TankDamageVisual _damageVisuals;
         private float _respawnInSeconds = -1;
+
+        public Animator GetAnimator()
+        {
+            return _animator;
+        }
+
 
         public void ToggleReady()
         {
@@ -231,7 +238,7 @@ namespace FusionExamples.Tanknarok
         /// </summary>
         public override void Render()
         {
-            _visualParent.gameObject.SetActive(state == State.Active);
+            // _visualParent.gameObject.SetActive(state == State.Active);
             _collider.enabled = state != State.Dead;
             _hitBoxRoot.enabled = state == State.Active;
             _damageVisuals.CheckHealth(life);
@@ -453,7 +460,7 @@ namespace FusionExamples.Tanknarok
                     _deathExplosionInstance.SetActive(false); // dirty fix to reactivate the death explosion if the particlesystem is still active
                     _deathExplosionInstance.SetActive(true);
 
-                    _visualParent.gameObject.SetActive(false);
+                    // _visualParent.gameObject.SetActive(false);
                     _damageVisuals.OnDeath();
                     break;
                 case State.Despawned:
@@ -538,6 +545,11 @@ namespace FusionExamples.Tanknarok
                     Runner.Despawn(Object);
                 }
             }
+        }
+
+        public void CheckRunningState()
+        {
+            
         }
     }
 }
