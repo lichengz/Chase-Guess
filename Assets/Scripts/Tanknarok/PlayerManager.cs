@@ -13,16 +13,16 @@ namespace FusionExamples.Tanknarok
         public static List<Player> playersAlive => _playersAlive;
 		private static Queue<Player> _playerQueue = new Queue<Player>();
 
-		static private CameraStrategy _cameraStrategy;
-		static private CameraStrategy CameraStrategy
-		{
-			get
-			{
-				if (_cameraStrategy == null)
-					_cameraStrategy = FindObjectOfType<CameraStrategy>(true);
-				return _cameraStrategy;
-			}
-		}
+		// static private CameraStrategy _cameraStrategy;
+		// static private CameraStrategy CameraStrategy
+		// {
+		// 	get
+		// 	{
+		// 		if (_cameraStrategy == null)
+		// 			_cameraStrategy = FindObjectOfType<CameraStrategy>(true);
+		// 		return _cameraStrategy;
+		// 	}
+		// }
 
 		public static void HandleNewPlayers()
 		{
@@ -30,7 +30,7 @@ namespace FusionExamples.Tanknarok
 			{
 				Player player = _playerQueue.Dequeue();
 
-				CameraStrategy.AddTarget(player.gameObject);
+				// CameraStrategy.AddTarget(player.gameObject);
 				
 				player.Respawn(0);
 			}
@@ -89,16 +89,16 @@ namespace FusionExamples.Tanknarok
 			Debug.Log("Player Removed " + player.playerID);
 
 			_allPlayers.Remove(player);
-			if(CameraStrategy) // FindObject May return null on shutdown, so let's avoid that NPE
-				CameraStrategy.RemoveTarget(player.gameObject);
+			// if(CameraStrategy) // FindObject May return null on shutdown, so let's avoid that NPE
+			// 	CameraStrategy.RemoveTarget(player.gameObject);
 		}
 
 		public static void ResetPlayerManager()
 		{
 			Debug.Log("Clearing Player Manager");
 			allPlayers.Clear();
-			if(CameraStrategy) // FindObject May return null on shutdown, so let's avoid that NPE
-				CameraStrategy.RemoveAll();
+			// if(CameraStrategy) // FindObject May return null on shutdown, so let's avoid that NPE
+			// 	CameraStrategy.RemoveAll();
 			Player.local = null;
 		}
 
