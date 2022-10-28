@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 8616232291554802440}
   - component: {fileID: 1723606642065551448}
   - component: {fileID: 3407055641847980225}
-  - component: {fileID: 9184365531768299895}
+  - component: {fileID: 4235442269073664245}
   m_Layer: 8
   m_Name: PlayerTank
   m_TagString: Untagged
@@ -706,7 +706,7 @@ MonoBehaviour:
   - {fileID: 868463730390139289}
   - {fileID: 4937990569053503600}
   - {fileID: 3407055641847980225}
-  - {fileID: 9184365531768299895}
+  - {fileID: 4235442269073664245}
   - {fileID: 2623805786298927061}
   - {fileID: 3456142216153293605}
   - {fileID: 346593213666910495}
@@ -757,6 +757,7 @@ MonoBehaviour:
   _score: 0
   _ready:
     _value: 0
+  isRunning: 0
 --- !u!114 &6203864925880487117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1023,7 +1024,7 @@ MonoBehaviour:
   rotationSpeed: 15
   _IsGrounded: 0
   _Velocity: {x: 0, y: 0, z: 0}
---- !u!114 &9184365531768299895
+--- !u!114 &4235442269073664245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1037,7 +1038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   Animator: {fileID: 1627485708476495049}
-  SyncSettings: 127
+  SyncSettings: 2
   FloatAccuracy:
     _value: 0
     _inverse: 0
