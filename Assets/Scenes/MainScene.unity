@@ -2137,12 +2137,38 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2652913064384595577, guid: 14e619ae6d6c15048a605c22484e77d4, type: 3}
   m_PrefabInstance: {fileID: 2652913064669342307}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 870836643}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73073c15e4583574c9b4d3af049f660c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &870836643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2652913064384595575, guid: 14e619ae6d6c15048a605c22484e77d4, type: 3}
+  m_PrefabInstance: {fileID: 2652913064669342307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!81 &870836648 stripped
+AudioListener:
+  m_CorrespondingSourceObject: {fileID: 2652913064384595579, guid: 14e619ae6d6c15048a605c22484e77d4, type: 3}
+  m_PrefabInstance: {fileID: 2652913064669342307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &870836651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870836643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2103778458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreferredRunner: 0
+  Components:
+  - {fileID: 870836648}
+  _guid: b057efd6-31a1-4b1c-
 --- !u!1 &887963195
 GameObject:
   m_ObjectHideFlags: 0
@@ -4216,6 +4242,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VCDriver: {fileID: 2087594248}
   VCAnimator: {fileID: 2087594251}
+--- !u!81 &1899651432 stripped
+AudioListener:
+  m_CorrespondingSourceObject: {fileID: 3110275275162812071, guid: 14e619ae6d6c15048a605c22484e77d4, type: 3}
+  m_PrefabInstance: {fileID: 2652913064669342307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1899651433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899651427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2103778458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreferredRunner: 0
+  Components:
+  - {fileID: 1899651432}
+  _guid: 9bcc23d0-013f-4b00-
 --- !u!1 &1925409130
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,6 +4720,8 @@ GameObject:
   - component: {fileID: 2087594250}
   - component: {fileID: 2087594249}
   - component: {fileID: 2087594251}
+  - component: {fileID: 2087594252}
+  - component: {fileID: 2087594253}
   m_Layer: 0
   m_Name: CM StateDrivenCamera
   m_TagString: Untagged
@@ -4791,6 +4840,59 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2087594252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087594248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  Animator: {fileID: 2087594251}
+  SyncSettings: 79
+  FloatAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: -814817977
+  TimeAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: 1061325578
+  WeightAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: -814817977
+  StateHashes: 0000000020ebcebecb284643f50333a9c6b0169e09cea73aac8a4085ba1509cc89a62cfbf37a250d71356988
+  TriggerHashes: 00000000
+--- !u!114 &2087594253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087594248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 0
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 749aea913dba4e86bda552ce2e9c162b
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 2087594252}
+  SimulationBehaviours: []
 --- !u!1 &2102347960
 GameObject:
   m_ObjectHideFlags: 0
