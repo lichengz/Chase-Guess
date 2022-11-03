@@ -209,17 +209,20 @@ namespace FusionExamples.Tanknarok
 				if (input.IsDown(NetworkInputData.BUTTON_FIRE_PRIMARY))
 				{
 					//_player.shooter.FireWeapon(WeaponManager.WeaponInstallationType.PRIMARY);
-                    _player.AttackStart();
+                    if (GameManager.playState == GameManager.PlayState.LEVEL)
+                        _player.AttackStart();
+
 				}
 
-				if (input.IsDown(NetworkInputData.BUTTON_FIRE_SECONDARY))
-				{
-					_player.shooter.FireWeapon(WeaponManager.WeaponInstallationType.SECONDARY);
-				}
+				// if (input.IsDown(NetworkInputData.BUTTON_FIRE_SECONDARY))
+				// {
+				// 	_player.shooter.FireWeapon(WeaponManager.WeaponInstallationType.SECONDARY);
+				// }
 
 				if (input.IsDown(NetworkInputData.READY))
 				{
-					_player.ToggleReady();
+                    if (GameManager.playState == GameManager.PlayState.LOBBY)
+					    _player.ToggleReady();
 				}
 
 				// We let the NetworkCharacterController do the actual work

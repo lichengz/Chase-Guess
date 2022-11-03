@@ -76,7 +76,7 @@ namespace FusionExamples.Tanknarok
 		{
 			if (playState != PlayState.LOBBY)
 			{
-				int playersleft = PlayerManager.PlayersAlive();
+				int playersleft = PlayerManager.GetPlayersAlive().Count;
 				Debug.Log($"Someone died - {playersleft} left");
 				if (playersleft<=1)
 				{

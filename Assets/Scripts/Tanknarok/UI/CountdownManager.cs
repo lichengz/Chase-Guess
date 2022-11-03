@@ -83,7 +83,7 @@ namespace FusionExamples.Tanknarok
                 {
                     lastCount = currentCount;
                     _refreshCountdownUI.text = currentCount.ToString();
-                    Debug.Log($"countdown {currentCount.ToString()}");
+                    // Debug.Log($"countdown {currentCount.ToString()}");
                     _audioEmitter.PlayOneShot();
                 }
 
@@ -102,7 +102,7 @@ namespace FusionExamples.Tanknarok
                     lastCount = Mathf.CeilToInt(_refreshCountdownFrom + 1);
                     _RefreshCountdownTimer = _refreshCountdownFrom;
                     callback?.Invoke();
-                    Debug.Log($"invoked countdown callback");
+                    // Debug.Log($"invoked countdown callback");
                 }
 
                 yield return null;

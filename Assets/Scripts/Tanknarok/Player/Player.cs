@@ -48,18 +48,19 @@ namespace FusionExamples.Tanknarok
         [Networked] private TickTimer respawnTimer { get; set; }
 
         [Networked] private TickTimer invulnerabilityTimer { get; set; }
-        [Networked] public TickTimer networkedAttackLifeTimer { get; set; }
-        private TickTimer _predictedAttackLifeTimer;
+        // [Networked] public TickTimer networkedAttackLifeTimer { get; set; }
+        // private TickTimer _predictedAttackLifeTimer;
 
-        private TickTimer attackLifeTimer
-        {
-            get => Object.IsPredictedSpawn ? _predictedAttackLifeTimer : networkedAttackLifeTimer;
-            set
-            {
-                if (Object.IsPredictedSpawn) _predictedAttackLifeTimer = value;
-                else networkedAttackLifeTimer = value;
-            }
-        }
+        // private TickTimer attackLifeTimer
+        // {
+        //     get => Object.IsPredictedSpawn ? _predictedAttackLifeTimer : networkedAttackLifeTimer;
+        //     set
+        //     {
+        //         if (Object.IsPredictedSpawn) _predictedAttackLifeTimer = value;
+        //         else networkedAttackLifeTimer = value;
+        //     }
+        // }
+        [Networked] private TickTimer attackLifeTimer { get; set; }
 
         [Networked] public byte lives { get; set; }
 
@@ -221,7 +222,14 @@ namespace FusionExamples.Tanknarok
             }
 
             CheckForPowerupPickup();
-            //CheckForAttack();
+
+            if (GameManager.playState == GameManager.PlayState.LEVEL && attackLifeTimer.RemainingTime(Runner) > 0)
+            {
+                CheckForAttack();
+                // Debug.Log("checking for attack");
+            }
+                
+
             // _animator.SetBool("run", isRunning);
             if (Runner.IsForward)
             {
@@ -319,21 +327,45 @@ namespace FusionExamples.Tanknarok
             _cc.Move(new Vector3(moveDirection.x, 0, moveDirection.y));
         }
 
+        // temp values 
+        private float attackLifetime = 2f;
+        private float attackRadius = 0.7f;
+        private float maxAttackDistance = 2f;
+
         public void AttackStart()
         {
-            // if attack timer is inactive, start attack life timer             
+            if (attackLifeTimer.RemainingTime(Runner) > 0)
+            {
+                Debug.Log($"player {playerID} attack cooldown");
+                return;
+            }
+            attackLifeTimer = TickTimer.CreateFromSeconds(Runner, attackLifetime);
             Debug.Log($"player {playerID} attacks!");
         }
 
-        private void CheckForAttack() //called every network update 
+        
+        private void CheckForAttack() //called every network update while attack life timer is active 
         {
-            // if attack timer is active
-            // update arm pos and check if new pos overlaps w another player 
+            Vector3 attackDirection = aimDirection; // todo use facing dir
 
-            // if (isActivated && Runner.GetPhysicsScene().OverlapSphere(transform.position, _pickupRadius, _overlaps, _pickupMask, QueryTriggerInteraction.Collide) > 0)
-            // {
-            //      attackedPlayer.ApplyDamage(impulse, damage, player)
-            // }
+            if (isActivated && Runner.GetPhysicsScene().SphereCast(transform.position, attackRadius, attackDirection, out RaycastHit hitInfo, maxAttackDistance, LayerMask.GetMask("Player")))
+            {
+                Debug.Log($"player {playerID} hit another player");
+                // todo get player from hitInfo
+                // Player victim = hitInfo.transform.gameObject; 
+                // victim.ApplyDamage(impulse, damage, player)
+            }
+        }
+
+        // draws the attack sphere when player is selected in scene
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.magenta;
+            Vector3 attackDirection = aimDirection; // todo use facing dir
+            Vector3 attackCenter = transform.position + attackDirection * maxAttackDistance;
+            Debug.Log($"player {playerID} origin {transform.position}, attack center {attackCenter}");
+            Gizmos.DrawWireSphere(attackCenter, attackRadius);
+
         }
 
         /// <summary>
