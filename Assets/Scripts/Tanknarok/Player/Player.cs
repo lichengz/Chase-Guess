@@ -48,19 +48,7 @@ namespace FusionExamples.Tanknarok
         [Networked] private TickTimer respawnTimer { get; set; }
 
         [Networked] private TickTimer invulnerabilityTimer { get; set; }
-        // [Networked] public TickTimer networkedAttackLifeTimer { get; set; }
-        // private TickTimer _predictedAttackLifeTimer;
-
-        // private TickTimer attackLifeTimer
-        // {
-        //     get => Object.IsPredictedSpawn ? _predictedAttackLifeTimer : networkedAttackLifeTimer;
-        //     set
-        //     {
-        //         if (Object.IsPredictedSpawn) _predictedAttackLifeTimer = value;
-        //         else networkedAttackLifeTimer = value;
-        //     }
-        // }
-        [Networked] private TickTimer attackLifeTimer { get; set; }
+        [Networked] private TickTimer attackCooldownTimer { get; set; }
 
         [Networked] public byte lives { get; set; }
 
@@ -223,7 +211,7 @@ namespace FusionExamples.Tanknarok
 
             CheckForPowerupPickup();
 
-            if (GameManager.playState == GameManager.PlayState.LEVEL && attackLifeTimer.RemainingTime(Runner) > 0)
+            if (GameManager.playState == GameManager.PlayState.LEVEL && attackCooldownTimer.RemainingTime(Runner) > 0)
             {
                 CheckForAttack();
                 // Debug.Log("checking for attack");
@@ -328,18 +316,19 @@ namespace FusionExamples.Tanknarok
         }
 
         // temp values 
-        private float attackLifetime = 2f;
-        private float attackRadius = 0.7f;
+        private float attackCooldownTime = 1f;
+        private float attackRadius = 1f;
         private float maxAttackDistance = 2f;
+        private byte attackDamage = 20;
 
         public void AttackStart()
         {
-            if (attackLifeTimer.RemainingTime(Runner) > 0)
+            if (attackCooldownTimer.RemainingTime(Runner) > 0)
             {
                 Debug.Log($"player {playerID} attack cooldown");
                 return;
             }
-            attackLifeTimer = TickTimer.CreateFromSeconds(Runner, attackLifetime);
+            attackCooldownTimer = TickTimer.CreateFromSeconds(Runner, attackCooldownTime);
             Debug.Log($"player {playerID} attacks!");
         }
 
@@ -350,10 +339,16 @@ namespace FusionExamples.Tanknarok
 
             if (isActivated && Runner.GetPhysicsScene().SphereCast(transform.position, attackRadius, attackDirection, out RaycastHit hitInfo, maxAttackDistance, LayerMask.GetMask("Player")))
             {
-                Debug.Log($"player {playerID} hit another player");
-                // todo get player from hitInfo
-                // Player victim = hitInfo.transform.gameObject; 
-                // victim.ApplyDamage(impulse, damage, player)
+                Player victim = hitInfo.transform.gameObject.GetComponent<Player>();
+                
+                if(victim)
+                {
+                    Vector3 impulse = victim.transform.position - hitInfo.point; // todo 
+                    // float l = Mathf.Clamp(_bulletSettings.areaRadius - impulse.magnitude, 0, _bulletSettings.areaRadius);
+                    // impulse = _bulletSettings.areaImpulse * l * impulse.normalized;
+                    Debug.Log($"player {playerID} hit player {victim.playerID}, impulse {impulse}");
+                    victim.ApplyDamage(impulse, attackDamage, Object.InputAuthority);
+                }
             }
         }
 
