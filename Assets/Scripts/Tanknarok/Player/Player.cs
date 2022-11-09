@@ -23,6 +23,8 @@ namespace FusionExamples.Tanknarok
         [SerializeField] private TankTeleportInEffect _teleportIn;
         [SerializeField] private TankTeleportOutEffect _teleportOut;
         [SerializeField] private Animator _animator;
+        [SerializeField] private PlayerAnimation _playerAnimation;
+
         private NetworkMecanimAnimator _netAnimator;
 
         [Space(10)] [SerializeField] private GameObject _deathExplosionPrefab;
@@ -223,17 +225,25 @@ namespace FusionExamples.Tanknarok
             CheckForPowerupPickup();
             //CheckForAttack();
             // _animator.SetBool("run", isRunning);
-            if (Runner.IsForward)
+            // if (Runner.IsForward)
+            // {
+            // if (isRunning)
+            // {
+            //     _netAnimator.SetTrigger("startRun");
+            // }
+            // else
+            // {
+            //     _netAnimator.SetTrigger("stopRun");
+            // }
+            // _animator.SetBool("run", isRunning);
+            // }
+            if (isRunning)
+            {  
+                _playerAnimation.Run();
+            }
+            else
             {
-                // if (isRunning)
-                // {
-                //     _netAnimator.SetTrigger("startRun");
-                // }
-                // else
-                // {
-                //     _netAnimator.SetTrigger("stopRun");
-                // }
-                _animator.SetBool("run", isRunning);
+                _playerAnimation.Stop();
             }
         }
 

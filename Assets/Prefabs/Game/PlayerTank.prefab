@@ -652,7 +652,6 @@ GameObject:
   - component: {fileID: 8616232291554802440}
   - component: {fileID: 1723606642065551448}
   - component: {fileID: 3407055641847980225}
-  - component: {fileID: 4235442269073664245}
   m_Layer: 8
   m_Name: PlayerTank
   m_TagString: Untagged
@@ -699,14 +698,14 @@ MonoBehaviour:
   Flags: 2305
   NetworkGuid:
     RawGuidValue: e0684f2c29d615d4d8e7a6ddae619457
-  NestedObjects: []
+  NestedObjects:
+  - {fileID: 7270574331523201698}
   NetworkedBehaviours:
   - {fileID: -3098922383743760179}
   - {fileID: 6203864925880487117}
   - {fileID: 868463730390139289}
   - {fileID: 4937990569053503600}
   - {fileID: 3407055641847980225}
-  - {fileID: 4235442269073664245}
   - {fileID: 2623805786298927061}
   - {fileID: 3456142216153293605}
   - {fileID: 346593213666910495}
@@ -735,7 +734,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c0b5a8092855bc640a66a3f25c3718ef, type: 2}
   _teleportIn: {fileID: 3215633281119578408}
   _teleportOut: {fileID: 1758615233486783842}
-  _animator: {fileID: 1627485708476495049}
+  _animator: {fileID: 2276038648820134888}
+  _playerAnimation: {fileID: 1844574302378145450}
   _deathExplosionPrefab: {fileID: 1813018202934516, guid: 4181fd4c369afcb4ca769c5ee23f0a20, type: 3}
   _groundMask:
     serializedVersion: 2
@@ -1024,35 +1024,6 @@ MonoBehaviour:
   rotationSpeed: 15
   _IsGrounded: 0
   _Velocity: {x: 0, y: 0, z: 0}
---- !u!114 &4235442269073664245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7917003752575662290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  Animator: {fileID: 1627485708476495049}
-  SyncSettings: 2
-  FloatAccuracy:
-    _value: 0
-    _inverse: 0
-    _hash: -814817977
-  TimeAccuracy:
-    _value: 0
-    _inverse: 0
-    _hash: 1061325578
-  WeightAccuracy:
-    _value: 0
-    _inverse: 0
-    _hash: -814817977
-  StateHashes: 0000000015b524dc47ef5bf5c0a47650b96ee5f6
-  TriggerHashes: 00000000
 --- !u!1 &8041608635261517176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,30 +1161,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7911653039066033918}
     m_Modifications:
-    - target: {fileID: 344211791219361651, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_EnableGPUInstancing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885109391567610864, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885109391567610864, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885109391567610864, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885109391567610864, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2184127068953936302, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_EnableGPUInstancing
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2239026660326070359, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1258,17 +1205,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2766280954613152190, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7663626851215297795, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
       propertyPath: m_Name
       value: TeleportInParent
-      objectReference: {fileID: 0}
-    - target: {fileID: 7663626851215297795, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ff0f46fc7dbb2448b962b45e072a6c6, type: 3}
@@ -1587,6 +1526,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7911653039066033918}
     m_Modifications:
+    - target: {fileID: 1195684757199177994, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195684757199177994, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[1]
+      value: 
+      objectReference: {fileID: 1844574302378145450}
     - target: {fileID: 4811412420932910109, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
       propertyPath: m_Name
       value: TeleportOutParent
@@ -1642,11 +1589,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8198572769638508795, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
   m_PrefabInstance: {fileID: 8390672466086179752}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1627485708476495049 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7125914552968120161, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
+--- !u!1 &1125545588042722439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8930380334289968943, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
   m_PrefabInstance: {fileID: 8390672466086179752}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1844574302378145450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125545588042722439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09c861658dfa2549a83677018c14562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
 --- !u!114 &1758615233486783842 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7788539162015413962, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
@@ -1656,6 +1616,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a07c6a3b559e3a04486db1ef99573194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2276038648820134888 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7775382505385640000, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
+  m_PrefabInstance: {fileID: 8390672466086179752}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7270574331523201698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1195684757199177994, guid: 90d330b62c3156c47a8359096a75bdd7, type: 3}
+  m_PrefabInstance: {fileID: 8390672466086179752}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125545588042722439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &9177928019441401879
