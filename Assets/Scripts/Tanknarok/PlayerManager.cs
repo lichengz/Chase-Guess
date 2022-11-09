@@ -36,19 +36,17 @@ namespace FusionExamples.Tanknarok
 			}
 		}
 
-		public static int PlayersAlive()
+		public static List<Player> GetPlayersAlive()
 		{
-			int numPlayersAlive = 0;
             _playersAlive.Clear();
 			for (int i = 0; i < _allPlayers.Count; i++)
 			{
 				if (_allPlayers[i].isActivated || _allPlayers[i].lives > 0)
                 {
                     _playersAlive.Add(_allPlayers[i]);
-                    numPlayersAlive++;
                 }
 			}
-			return numPlayersAlive;
+			return _playersAlive;
 		}
 
 		public static Player GetFirstAlivePlayer()
@@ -132,9 +130,10 @@ namespace FusionExamples.Tanknarok
         public static void AssignBattleIDs()
         {
             var rand = new System.Random();
-            int[] randomBattleIDs = new int[PlayersAlive()];
+            var playersAlive = GetPlayersAlive();
+            int[] randomBattleIDs = new int[playersAlive.Count];
 
-            for (int i = 0; i < _playersAlive.Count; i++)
+            for (int i = 0; i < playersAlive.Count; i++)
             {
                 // random numbers between 1 and 3 (rock, paper, scissors. 0 is null)
                 int randomBattleID = rand.Next(1, 4);
@@ -150,9 +149,9 @@ namespace FusionExamples.Tanknarok
                 }
 
                 randomBattleIDs.SetValue(randomBattleID, i);
-                _playersAlive[i].battleID = (Player.BattleID)randomBattleIDs[i];
+                playersAlive[i].battleID = (Player.BattleID)randomBattleIDs[i];
 
-                Debug.Log($"assigned battle id {(Player.BattleID)randomBattleIDs[i]} to player {_playersAlive[i]}");
+                Debug.Log($"assigned battle id {(Player.BattleID)randomBattleIDs[i]} to player {playersAlive[i].playerID}");
             }
         }
 	}
